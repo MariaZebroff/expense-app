@@ -1,0 +1,10 @@
+.input-label {
+    color: #1a2f3c;
+}
+
+.input-field {
+    border: 1px solid #1a2f3c;
+    background-color: #C4D2D3;
+    color: #1a2f3c;
+    border-radius: 5px;
+}
