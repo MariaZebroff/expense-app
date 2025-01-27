@@ -5,6 +5,7 @@ interface InputProps  {
     inputType: string;
     inputName: string;
     min?: number;
+    max?: number;
     handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     value: string
 }

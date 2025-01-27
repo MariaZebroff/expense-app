@@ -4,11 +4,11 @@
     font-weight: 700;
 
 }
-.expence-form {
+.expense-form {
     position: absolute; 
     left: 50%;
     top: 50%;
-    background-color: #E4E5DB;
+    background-color: #eee9e9;
     box-shadow: -4px 17px 22px 0px rgba(26, 47, 60, 0.75);
     max-width: 700px;
     border-radius: 10px;

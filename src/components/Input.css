@@ -1,9 +1,9 @@
 .input-label {
-    color: #1a2f3c;
+    color: #3a596d !important;
 }
 
 .input-field {
-    border: 1px solid #1a2f3c;
+    border: 1px solid #88a6bb !important;
     background-color: #C4D2D3;
     color: #1a2f3c;
     border-radius: 5px;
