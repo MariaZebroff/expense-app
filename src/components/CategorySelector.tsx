@@ -12,6 +12,7 @@ const CategorySelector = ({category, onCategorySet}:CategoryProps) =>{
 return (<div className=" py-2 flex flex-col">
     <label htmlFor="category" className="block text-sm/6 font-small input-label">Category</label>
             <select value={category} onChange={handleSelect} name="category" id="category" className = "block min-w-0 grow p-1  focus:outline-none input-field">
+            <option value="default"></option>
             <optgroup label="housing">
                 <option value="rent">Rent/Mortgage</option>
                 <option value="utilities">Utilities (Electricity, Water, Gas)</option>

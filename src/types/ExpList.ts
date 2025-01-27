@@ -1,6 +1,6 @@
 export default interface ExpList {
     id: string
     title: string;
-    ammount: string;
+    amount: string;
     category: string;
 }

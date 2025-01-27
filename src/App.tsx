@@ -14,6 +14,7 @@ import './App.css'
 
 function App() {
   const [expenseCollection, setExpenseCollection] = useState<expenseCollection[]>([]);
+  const [filteredExpenses, setFilteredExpenses] = useState<expenseCollection[]>([]);
   const [editedExpense, setEditedExpense] = useState<expenseCollection>();
   const [isOpened, setIsOpened] = useState<boolean>(false);
   const [isFilterOpened, setIsFilterOpened] = useState<boolean>(false);
@@ -63,6 +64,10 @@ function App() {
     setExpenseCollection(updatedArray);
   }
 
+  const handleExpenseFilter = (filteredExpenses:expenseCollection[]) =>{
+    setFilteredExpenses(filteredExpenses);
+  }
+
   const handleExpenseEdit=(id:string)=>{
 
     setIsOpened(true);
@@ -74,9 +79,9 @@ function App() {
   return (
     <>
         <Nav openFormHandle={onFormOpen} openFilterFormHandle ={onFilterOpen}/>
-        <FilterForm />
+        <FilterForm allExpenses={expenseCollection} onExpenseFilter = {handleExpenseFilter}/>
         <ExpenseForm editedExpense = {editedExpense} handleEditExpense={handleExpEditSubmit} handleSubmitForm = {handleExpSubmit} isOpened={isOpened} onFormClose={onFormClose}/>
-        <ExpenseTable data={expenseCollection} onExpenseDelete={handleExpenseDelete} onExpenseEdit={handleExpenseEdit}/>
+        <ExpenseTable data={filteredExpenses} onExpenseDelete={handleExpenseDelete} onExpenseEdit={handleExpenseEdit}/>
     </>
   )
 }
