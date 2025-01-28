@@ -1,21 +1,21 @@
 
 // import { useState } from 'react'
 import ExpenseRow from './ExpenseRow'
-import expenseCollection from '../../types/expenseCollection'
+import expenseCollection from '../../types/ExpenseCollection'
 import './ExpenseTable.css'
 
-import getTheTotal from '../../utils/total'
+
 
 interface ExpenseTableProps {
     data: expenseCollection[],
+    totalSpending: number,
     onExpenseDelete: (id: string) => void;
     onExpenseEdit: (id: string) => void;
 }
-const ExpenseTable = ({ data, onExpenseDelete, onExpenseEdit }: ExpenseTableProps) => {
+const ExpenseTable = ({ data, onExpenseDelete, onExpenseEdit, totalSpending }: ExpenseTableProps) => {
 
     const dataArrangedByDate = data.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-    const amountArr = data.map(el => el.expData.amount);
-    const total = getTheTotal(amountArr);
+
 
     return (<div className='w-full px-4'>
 
@@ -45,7 +45,7 @@ const ExpenseTable = ({ data, onExpenseDelete, onExpenseEdit }: ExpenseTableProp
             <tfoot >
                 <tr >
                     <th className="p-2" scope="row" colSpan={3} >Total:</th>
-                    <td scope="row" colSpan={3} className="pl-5">${total}</td>
+                    <td scope="row" colSpan={3} className="pl-5">${totalSpending}</td>
                 </tr>
             </tfoot>
         </table>

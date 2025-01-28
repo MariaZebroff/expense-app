@@ -52,7 +52,13 @@ const ExpenseForm = ({ handleSubmitForm, isOpened, onFormClose, editedExpense, h
     }
 
     const onSetAmount = (event: React.ChangeEvent<HTMLInputElement>): void => {
-        setAmount(event.target.value);
+        const value = +parseFloat(event.target.value).toFixed(2);
+        console.log('value', value);
+        if (value >= 1) {
+            setAmount(value + "");
+          }else{
+              setAmount('');
+          }
     }
     const onCategorySet = (event: React.ChangeEvent<HTMLSelectElement>): void => {
 

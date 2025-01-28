@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 //import reactLogo from './assets/react.svg'
 
 import ExpenseForm from './components/ExpenseForm'
@@ -6,10 +6,20 @@ import FilterForm from './components/FilterForm'
 import ExpList from './types/ExpList'
 import expenseCollection from './types/ExpenseCollection'
 import Nav from './components/layout/Nav'
+import DashboardDisplay from './components/layout/DashboardDisplay'
+import TotalExpenseCahrt from './components/layout/TotalExpenseCahrt'
 import ExpenseTable from './components/layout/ExpenseTable'
+import SummaryCard from './components/layout/SummaryCard'
+import CategoryAmount from './types/CategoryAmount'
+
+
+import getTheTotal from './utils/total'
+import sumAmountsByCategory from './utils/categorySum'
 
 
 import './App.css'
+
+
 
 
 function App() {
@@ -19,19 +29,37 @@ function App() {
   const [isOpened, setIsOpened] = useState<boolean>(false);
   const [isFilterOpened, setIsFilterOpened] = useState<boolean>(false);
 
+  const [spendingCat, setSpendingCat] = useState<CategoryAmount[]>([]);
+  const [filterTotalSpending, setFilterTotalSpending] = useState<number>(0);
+  const [totalSpending, setTotalSpending] = useState<number>(0);
+
+  useEffect(() => {
+    // Fetch data from localStorage
+    const data = localStorage.getItem("allExpenses");
+  
+    const allSavedExpenses = data ? JSON.parse(data) : [];
+    
+    if (allSavedExpenses.length > 0) {
+      setExpenseCollection(allSavedExpenses);
+    }
+  }, []);
+
+
   useEffect(()=>{
-    const data = localStorage.getItem("allExpenses") || '[]';
-    const allSavedExpenses= JSON.parse(data);
-    setExpenseCollection(allSavedExpenses);
-  },[]);
+    const amountArr = expenseCollection.map(el => el.expData.amount);
+    const total = getTheTotal(amountArr);
+    setTotalSpending(total);
+
+    setSpendingCat(sumAmountsByCategory(expenseCollection));
+
+    localStorage.setItem("allExpenses", JSON.stringify(expenseCollection));
+  }, [expenseCollection]);
 
  
 
   const handleExpSubmit = (date:string, list:ExpList[])=>{
     const adjustedArray = list.map(el=> ({date: date,  expData: el}))
-    setExpenseCollection([...expenseCollection,...adjustedArray]);
-    localStorage.setItem("allExpenses", JSON.stringify([...expenseCollection,...adjustedArray]));
-
+    setExpenseCollection(prev=>[...prev,...adjustedArray]);
   }
 
   const onFormClose = ()=>{
@@ -53,7 +81,6 @@ function App() {
   const handleExpenseDelete = (id:string)=>{
     const newList = expenseCollection.filter(exp=>exp.expData.id !== id);
     setExpenseCollection([...newList]);
-    localStorage.setItem("allExpenses", JSON.stringify([...newList]));
   }
 
   const handleExpEditSubmit = (data: expenseCollection) =>{
@@ -76,12 +103,25 @@ function App() {
   }
 
 
+useEffect(()=>{
+  const amountArr = filteredExpenses.map(el => el.expData.amount);
+  const total = getTheTotal(amountArr);
+  setFilterTotalSpending(total);
+},[filteredExpenses])
+ 
+
+
   return (
     <>
         <Nav openFormHandle={onFormOpen} openFilterFormHandle ={onFilterOpen}/>
-        <FilterForm allExpenses={expenseCollection} onExpenseFilter = {handleExpenseFilter}/>
+        <DashboardDisplay>
+        <TotalExpenseCahrt amountRange={spendingCat}/>
+        <SummaryCard spendingCat={spendingCat} totalSpending={totalSpending}/>
+        </DashboardDisplay>
         <ExpenseForm editedExpense = {editedExpense} handleEditExpense={handleExpEditSubmit} handleSubmitForm = {handleExpSubmit} isOpened={isOpened} onFormClose={onFormClose}/>
-        <ExpenseTable data={filteredExpenses} onExpenseDelete={handleExpenseDelete} onExpenseEdit={handleExpenseEdit}/>
+
+        <FilterForm handleClose={onFilterClose} isFilterOpened={isFilterOpened} allExpenses={expenseCollection} onExpenseFilter = {handleExpenseFilter}/>
+        <ExpenseTable totalSpending = {filterTotalSpending} data={filteredExpenses} onExpenseDelete={handleExpenseDelete} onExpenseEdit={handleExpenseEdit}/>
     </>
   )
 }

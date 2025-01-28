@@ -1,0 +1,1 @@
+export default interface CategoryAmount { categoryName: string; amount: number }

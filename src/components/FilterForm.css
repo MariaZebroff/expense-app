@@ -1,0 +1,10 @@
+.filter-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #457899;
+}
+
+.filter-wrapper {
+   background-color: #efefef;
+   border-radius: 10px;
+}
