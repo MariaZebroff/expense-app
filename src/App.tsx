@@ -133,9 +133,6 @@ useEffect(()=>{
   setFilterTotalSpending(total);
 },[filteredExpenses])
 
-console.log('filteredExpenses.length !== expenseCollection.length', filteredExpenses.length !== expenseCollection.length);
-console.log('filteredExpenses.length !== expenseCollection.length', expenseCollection.length);
-console.log('filteredExpenses.length !== expenseCollection.length', filteredExpenses.length );
   return (
     <>
         <Nav openFormHandle={onFormOpen} openFilterFormHandle ={onFilterOpen}/>
