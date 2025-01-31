@@ -145,7 +145,7 @@ useEffect(()=>{
  
         <FilterForm  handleReset = {onFilterReset} handleClose={onFilterClose} isFilterOpened={isFilterOpened} allExpenses={ expenseCollection } onExpenseFilter = {handleExpenseFilter}/>
 
-        {filteredExpenses.length !== expenseCollection.length && <FilterBanner handleLinkClick={()=>setIsFilterOpened(true)}/>}
+        {filteredExpenses.length !== expenseCollection.length && <FilterBanner count={filteredExpenses.length} handleLinkClick={()=>setIsFilterOpened(true)}/>}
         <ExpenseTable filterMessage={filterMessage} totalSpending = {filterTotalSpending} data={filteredExpenses} onExpenseDelete={handleExpenseDelete} onExpenseEdit={handleExpenseEdit}/>
     </>
   )
