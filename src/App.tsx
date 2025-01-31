@@ -55,7 +55,7 @@ function App() {
 
   useEffect(()=>{
    
-    
+    expenseCollection.length === 0? setFilterMessage(MESSAGES.startAdd) : setFilterMessage(null);
     const amountArr = expenseCollection.map(el => el.expData.amount);
     const total = getTheTotal(amountArr);
     setTotalSpending(total);
