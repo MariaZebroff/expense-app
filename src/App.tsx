@@ -54,7 +54,8 @@ function App() {
 
 
   useEffect(()=>{
-    expenseCollection.length === 0? setFilterMessage(MESSAGES.startAdd) : setFilterMessage(null);
+   
+    expenseCollection.length === 0 && setFilterMessage(MESSAGES.startAdd);
     const amountArr = expenseCollection.map(el => el.expData.amount);
     const total = getTheTotal(amountArr);
     setTotalSpending(total);
@@ -64,7 +65,7 @@ function App() {
     localStorage.setItem("allExpenses", JSON.stringify(expenseCollection));
   }, [expenseCollection]);
 
- 
+
 
   const handleExpSubmit = (date:string, list:ExpList[])=>{
     const adjustedArray = list.map(el=> ({date: date,  expData: el}))
@@ -127,7 +128,7 @@ function App() {
 
 
 useEffect(()=>{
-  filteredExpenses.length === 0? setFilterMessage(MESSAGES.filterMessage) : setFilterMessage(null);
+  filteredExpenses.length === 0 && expenseCollection.length !== 0 && setFilterMessage(MESSAGES.filterMessage);
   const amountArr = filteredExpenses.map(el => el.expData.amount);
   const total = getTheTotal(amountArr);
   setFilterTotalSpending(total);
