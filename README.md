@@ -1,50 +1,74 @@
-# React + TypeScript + Vite
+# Personal Expense Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple and intuitive Personal Expense Tracker built with **React** and **TypeScript**. This application allows users to add, edit, and delete expenses, categorize them, and visualize spending with charts.
 
-Currently, two official plugins are available:
+## Features
+- **Add, Edit, and Delete Expenses**
+- **Filter Expenses by Category and Date**
+- **Expense Summary and Total Calculation**
+- **Interactive Charts for Spending Analysis**
+- **LocalStorage Persistence**
+- **Responsive Design**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Technologies Used
+- **React / TypeScript**
+- **Vite** 
+- **TailwindCSS** 
+- **Recharts** (For data visualization)
+- **LocalStorage** (For data persistence)
 
-## Expanding the ESLint configuration
+## Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Prerequisites
+- Node.js (>= 16)
+- npm or yarn
 
-- Configure the top-level `parserOptions` property like this:
+### Steps
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/MariaZebroff/expense-app.git
+   cd personal-expense-tracker
+   ```
+2. Install dependencies:
+   ```sh
+   npm install
+   # or
+   yarn install
+   ```
+3. Start the development server:
+   ```sh
+   npm run dev
+   # or
+   yarn dev
+   ```
+4. Open your browser and visit `http://localhost:3000`.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Usage
+1. Enter an expense with a title, amount, category, and date.
+2. View all expenses in the list.
+3. Use filters to see expenses by category price range or date.
+4. View total expenses and category-wise breakdown using charts.
+5. Edit or delete expenses as needed.
+6. Data is automatically saved in **localStorage**.
+
+## Deployment
+To deploy the app, you can use **Vercel** or **Netlify**:
+```sh
+npm run build
+# or
+yarn build
 ```
+Upload the `dist` folder (if using Vite) or `build` folder (if using CRA) to your hosting provider.
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Contributing
+Pull requests are welcome! If you have suggestions, feel free to create an issue.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## License
+MIT License
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+---
+
+**Author:** Maria Zebroff
+
+📌 Connect with me on [GitHub](https://github.com/MariaZebroff/)!
+
