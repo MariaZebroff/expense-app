@@ -1,6 +1,6 @@
 {
+  "homepage": "http://MariaZebroff.github.io/expense-app",
   "name": "personal-expense-tracker",
-  "homepage": "https://MariaZebroff.github.io/expense-app",
   "private": true,
   "version": "0.0.0",
   "type": "module",
