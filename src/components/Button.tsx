@@ -5,8 +5,8 @@ interface ButtonProps  {
     text: string;
     btntype?: "button" | "submit" | "reset";
     handleClick?: () => void;
-    mode: "light" | "dark" | "light-nav";
-    size: "sm" | "md" | "lg"
+    mode: "light" | "dark" | "light-nav"| 'link';
+    size: "sm" | "md" | "link"
 }
 const Button =({text, btntype, handleClick, mode, size}:ButtonProps)=>{
     const handleButtonClick = ()=>{

@@ -1,6 +1,7 @@
-import React from 'react'
+
 import {Bar, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend} from 'recharts';
 import CategoryAmount from '../../types/CategoryAmount'
+import {NUM_CAT_SHOW} from '../../constant/constant'
 
 import './SummaryCard.css'
 
@@ -9,13 +10,13 @@ interface SummaryCardProps {
     totalSpending: number;
 }
 
-const NUM_CAT_SHOW = 4;
+
 
 export default function SummaryCard({spendingCat, totalSpending}:SummaryCardProps) {
     const catArr = spendingCat.length < NUM_CAT_SHOW? spendingCat : spendingCat.slice(0, NUM_CAT_SHOW);
 console.log(catArr);
   return (
-    <div className="total-wrapper p-4">
+    <div className="total-wrapper p-4 mt-6 lg:mt-0">
         <h2>Total Expenses: ${totalSpending}</h2>
         <div>
         <h3>Top spending category:</h3>

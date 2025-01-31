@@ -3,6 +3,11 @@
     box-shadow: -4px 17px 22px 0px rgba(26, 47, 60, 0.3);
     border-radius: 10px;
     max-width: 500px;
+
+
+        @media only screen and (max-width: 530px) {
+            transform: scale(0.7);
+        }
 }
 
 .total-wrapper h2 {

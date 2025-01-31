@@ -5,11 +5,15 @@ import Input from './Input';
 import CategorySelector from './CategorySelector';
 import DisplayNewExpenseCard from './DisplayNewExpenseCard';
 import { v4 as getId } from "uuid";
+import FormBackground from './layout/FormBackground'
 
 import ExpList from '../types/ExpList'
 import expenseCollection from '../types/ExpenseCollection'
+import {EXPENSE_AMOUNT_ALLOWED, MESSAGES} from '../constant/constant'
 
 import './ExpenseForm.css'
+
+
 
 interface ExpenseForm {
     onFormClose: () => void;
@@ -23,8 +27,10 @@ const ExpenseForm = ({ handleSubmitForm, isOpened, onFormClose, editedExpense, h
 
     const defaultDate: Date = new Date();
 
+    console.log('editedExpense', editedExpense);
+
     useEffect(() => {
-        console.log('editedExpense', editedExpense);
+
         if (editedExpense) {
             console.log('Hello!')
             console.log('Hello', editedExpense)
@@ -76,7 +82,7 @@ const ExpenseForm = ({ handleSubmitForm, isOpened, onFormClose, editedExpense, h
         console.log('title', title);
         console.log('amount', amount);
         if (title === '' && amount === '') {
-            setMessage("Amount or title can't be empty");
+            setMessage(MESSAGES.formValid.titleAmount);
         } else {
             editedExpense && handleEditExpense({ date: date.toLocaleDateString('en-CA'), expData: { id: editedExpense?.expData.id, title, amount, category } })
             message && setMessage(null);
@@ -93,9 +99,9 @@ const ExpenseForm = ({ handleSubmitForm, isOpened, onFormClose, editedExpense, h
         console.log('click');
 
         if (title !== '' && amount !== '') {
-            setMessage("Please add new expense to the list");
+            setMessage(MESSAGES.formValid. addExpense);
         } else if ((title === '' || amount === '') && expList.length === 0) {
-            setMessage("Please add new expense to the list");
+            setMessage(MESSAGES.formValid. addExpense);
         }
         else {
             handleSubmitForm(date.toLocaleDateString('en-CA'), expList);
@@ -111,19 +117,28 @@ const ExpenseForm = ({ handleSubmitForm, isOpened, onFormClose, editedExpense, h
 
     const expenseAdd = () => {
         if (title === '' || amount === '' || category === 'default') {
-            setMessage("Title, Amount or Category can't be empty");
+            setMessage(MESSAGES.formValid.titleAmountCategory);
         } else {
-            message && setMessage(null);
-            setExpList([...expList, { id: getId(), title, amount, category }])
-            setTitle('');
-            setAmount('');
-            setCategory('default');
+            if(expList.length < EXPENSE_AMOUNT_ALLOWED){
+                message && setMessage(null);
+                setExpList([...expList, { id: getId(), title, amount, category }])
+                setTitle('');
+                setAmount('');
+                setCategory('default');
+            }else {
+                setMessage(MESSAGES.formValid.fullTicket);
+                setTitle('');
+                setAmount('');
+                setCategory('default');
+            }
+            
         }
     }
 
     const expenseRemoved = (id: string) => {
         const newList = expList.filter(exp => exp.id !== id);
         setExpList(newList);
+        message && setMessage(null);
     }
     const cancelForm = () => {
         onFormClose();
@@ -135,9 +150,10 @@ const ExpenseForm = ({ handleSubmitForm, isOpened, onFormClose, editedExpense, h
     }
 
 
-    return (<>
-        {isOpened && <div className="p-12 expense-form">
-            <div className="flex">
+    return (<FormBackground isOpened = {isOpened }>
+    
+        <div className="p-4 sm:p-12 expense-form">
+            <div className="flex flex-col md:flex-row">
 
                 <form onSubmit={editedExpense ? handleEdit : handleSubmit}>
                     <h2 className="header">{editedExpense ? 'Edit Expense' : 'New Expense'}</h2>
@@ -156,8 +172,8 @@ const ExpenseForm = ({ handleSubmitForm, isOpened, onFormClose, editedExpense, h
                 </form>
                 {!editedExpense && <DisplayNewExpenseCard dateCurrent={date.toLocaleDateString('en-CA')} data={expList} onExpenseDelete={expenseRemoved} />}
             </div>
-        </div>}
-    </>)
+        </div>
+    </FormBackground>)
 }
 
 export default ExpenseForm;

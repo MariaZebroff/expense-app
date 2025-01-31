@@ -16,6 +16,12 @@
 
 .btn-md {
     padding: 8px 25px;
+    margin: 4px;
+    @media only screen and (max-width: 530px) {
+        font-size: 0.9rem;
+        padding: 5px 14px;
+
+    }
 }
 
 .dark {
@@ -26,6 +32,10 @@
 .light {
     background-color: #b4cad0;
     color: #1a2f3c;
+}
+
+.link {
+    text-decoration: underline;
 }
 
 .light-nav {

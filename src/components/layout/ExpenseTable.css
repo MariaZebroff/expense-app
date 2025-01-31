@@ -38,3 +38,24 @@ thead  th {
     border-top-right-radius: 10px;
 
 }
+
+th:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    min-width: 10rem;
+
+}
+
+tbody th:first-child {
+background: #c2bebe;
+
+}
+
+.cat-row {
+  min-width: 10rem;
+}
+
+.title-row {
+  min-width: 20rem;
+}

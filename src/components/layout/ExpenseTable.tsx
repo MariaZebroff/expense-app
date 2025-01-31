@@ -9,29 +9,33 @@ import './ExpenseTable.css'
 interface ExpenseTableProps {
     data: expenseCollection[],
     totalSpending: number,
+    filterMessage: string | null;
     onExpenseDelete: (id: string) => void;
     onExpenseEdit: (id: string) => void;
 }
-const ExpenseTable = ({ data, onExpenseDelete, onExpenseEdit, totalSpending }: ExpenseTableProps) => {
+const ExpenseTable = ({filterMessage, data, onExpenseDelete, onExpenseEdit, totalSpending }: ExpenseTableProps) => {
 
     const dataArrangedByDate = data.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
 
-    return (<div className='w-full px-4'>
-
+    return (<div className='w-full px-4 pb-4'>
+    <div className="overflow-auto">
         <table className='w-full mt-2'>
             <thead >
                 <tr>
                     <th className='p-4'>Date</th>
-                    <th className='p-4'>Category</th>
-                    <th className='p-4'>Title</th>
+                    <th className='p-4 cat-row'>Category</th>
+                    <th className='p-4 title-row'>Title</th>
                     <th className='p-4'>Amount</th>
                     <th className='p-4 edit-row'><div></div></th>
                     <th className='p-4 delete-row'><div></div></th>
                 </tr>
             </thead>
             <tbody>
-                {dataArrangedByDate.map(exp => <ExpenseRow
+                {filterMessage && (<tr >
+                    <th className="p-2" scope="row" colSpan={6} ><p><strong>{filterMessage}</strong></p></th>
+                </tr>) }
+                {!filterMessage && dataArrangedByDate.map(exp => <ExpenseRow
                     key={exp.expData.id}
                     id={exp.expData.id}
                     date={exp.date}
@@ -44,11 +48,12 @@ const ExpenseTable = ({ data, onExpenseDelete, onExpenseEdit, totalSpending }: E
             </tbody>
             <tfoot >
                 <tr >
-                    <th className="p-2" scope="row" colSpan={3} >Total:</th>
-                    <td scope="row" colSpan={3} className="pl-5">${totalSpending}</td>
+                    <th className="p-2" scope="row" colSpan={1} >Total:</th>
+                    <td scope="row" colSpan={5} className="pl-5">${totalSpending}</td>
                 </tr>
             </tfoot>
         </table>
+        </div>
     </div>)
 }
 

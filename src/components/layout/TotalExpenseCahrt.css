@@ -3,3 +3,9 @@
     font-weight: 800;
     color: #253e4b;
 }
+
+.main-chart-wrapper {
+    @media only screen and (max-width: 530px) {
+        transform: scale(0.7);
+    }
+}

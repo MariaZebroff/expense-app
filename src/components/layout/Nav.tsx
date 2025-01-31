@@ -14,7 +14,7 @@ const Nav =({openFormHandle, openFilterFormHandle}:NavProps)=>{
         <div className="ml-4 title">
             Dashboard
         </div>
-        <div className="">
+        <div className="flex sm:flex-row flex-col justify-between pr-4">
             <Button  handleClick={openFilterFormHandle} text="Filter Expenses" size="md" mode="light-nav" btntype="button"/>
             <Button  handleClick={openFormHandle} text="Add New Expense" size="md" mode="light-nav" btntype="button"/>
         </div>
