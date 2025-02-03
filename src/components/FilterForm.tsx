@@ -11,7 +11,7 @@ import './FilterForm.css';
 interface FilterFormProps {
   isFilterOpened: boolean;
   allExpenses: expenseCollection[];
-  onExpenseFilter: (arg: expenseCollection[]) => void;
+  onExpenseFilter: (arg: expenseCollection[], isNotEmpty:boolean) => void;
   handleClose: () => void;
   handleReset: ()=> void;
 }
@@ -37,7 +37,8 @@ const adjAr = expenseFilter(allExpenses, category, amount, amountTo, date, dateR
 
 
   useEffect(() => {
-    onExpenseFilter(filteredCollection);
+    const isNotEmpty = category !=='default' ||  amount !== '' || amountTo !== '' || date !== null || dateRange !== null ? true: false;
+    onExpenseFilter(filteredCollection, isNotEmpty);
   }, [filteredCollection]);
 
   const handleFilterReset = ()=>{
@@ -85,8 +86,6 @@ const adjAr = expenseFilter(allExpenses, category, amount, amountTo, date, dateR
 
   const onSetAmountTo = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const value = +parseFloat(event.target.value).toFixed(2)
-    console.log('ammount value EVENT', event.target.value  === "");
-    console.log('ammountTo value', value);
 
     if (value&&(value >= 1)) {
       setAmountTo(value + "");
@@ -101,11 +100,13 @@ const adjAr = expenseFilter(allExpenses, category, amount, amountTo, date, dateR
     if(amountTo !== '' && amount !== '' && +amount > +amountTo){
       setMessage(MESSAGES.formValid.priceRange);
     }else {
+  
     const adjAr = expenseFilter(filteredArr, category, amount, amountTo, date, dateRange);
+    const isNotEmpty = category !=='default' ||  amount !== '' || amountTo !== '' || date !== null || dateRange !== null ? true: false;
+    console.log('isNotEmpty FORM', isNotEmpty);
     message && setMessage(null);
-    onExpenseFilter([...adjAr]);
+    onExpenseFilter([...adjAr], isNotEmpty);
     handleClose();
-    
   }
   }
 

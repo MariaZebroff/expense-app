@@ -33,6 +33,7 @@ function App() {
   const [editedExpense, setEditedExpense] = useState<expenseCollection>();
   const [isOpened, setIsOpened] = useState<boolean>(false);
   const [isFilterOpened, setIsFilterOpened] = useState<boolean>(false);
+  const [filterStatus, setFilterStatus] = useState<boolean>(false);
 
   const [spendingCat, setSpendingCat] = useState<CategoryAmount[]>([]);
   const [filterTotalSpending, setFilterTotalSpending] = useState<number>(0);
@@ -110,7 +111,8 @@ function App() {
     setFilteredExpenses([]);
   }
 
-  const handleExpenseFilter = (filteredExpenses:expenseCollection[]) =>{
+  const handleExpenseFilter = (filteredExpenses:expenseCollection[], isNotEmpty:boolean) =>{
+    setFilterStatus(isNotEmpty);
     setFilteredExpenses(filteredExpenses);
   }
 
@@ -145,7 +147,7 @@ useEffect(()=>{
  
         <FilterForm  handleReset = {onFilterReset} handleClose={onFilterClose} isFilterOpened={isFilterOpened} allExpenses={ expenseCollection } onExpenseFilter = {handleExpenseFilter}/>
 
-        {filteredExpenses.length !== expenseCollection.length && <FilterBanner count={filteredExpenses.length} handleLinkClick={()=>setIsFilterOpened(true)}/>}
+        {filterStatus && <FilterBanner count={filteredExpenses.length} handleLinkClick={()=>setIsFilterOpened(true)}/>}
         <ExpenseTable filterMessage={filterMessage} totalSpending = {filterTotalSpending} data={filteredExpenses} onExpenseDelete={handleExpenseDelete} onExpenseEdit={handleExpenseEdit}/>
     </>
   )
