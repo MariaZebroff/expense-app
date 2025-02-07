@@ -32,8 +32,6 @@ const ExpenseForm = ({ handleSubmitForm, isOpened, onFormClose, editedExpense, h
     useEffect(() => {
 
         if (editedExpense) {
-            console.log('Hello!')
-            console.log('Hello', editedExpense)
             const date = new Date(editedExpense.date);
             setTitle(editedExpense.expData.title);
             setAmount(editedExpense.expData.amount);
